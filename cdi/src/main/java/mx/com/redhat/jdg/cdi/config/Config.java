@@ -20,50 +20,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.infinispan.quickstart.cdi;
+package mx.com.redhat.jdg.cdi.config;
 
-import org.infinispan.cdi.Remote;
-import org.infinispan.client.hotrod.RemoteCache;
+import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.client.hotrod.configuration.Configuration;
+import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 
-import javax.cache.annotation.CacheKey;
-import javax.cache.annotation.CacheRemoveAll;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.enterprise.inject.Produces;
 
-import java.util.Collection;
+public class Config {
 
-/**
- * <p>The greeting cache manager.</p>
- *
- * <p>This manager is used to collect informations on the greeting cache and to clear it's content if needed.</p>
- *
- * @author Kevin Pollet <pollet.kevin@gmail.com> (C) 2011
- * @see CacheRemoveAll
- */
-@Named
-@ApplicationScoped
-public class GreetingCacheManager {
+	@Produces
+	@ApplicationScoped
+	public RemoteCacheManager defaultRemoteCacheManager() {
+		Configuration conf = new ConfigurationBuilder()
+				.addServers(
+						"192.168.100.210:11222;192.168.100.211:11222;192.168.100.212:11222")
+				.build();
 
-   @Inject
-   @Remote("default")
-   private RemoteCache<CacheKey, String> cache;
-
-   public String getCacheName() {
-      return cache.getName();
-   }
-
-   public int getNumberOfEntries() {
-      return cache.size();
-   }
-
-   public String[] getCachedValues() {
-      Collection<String> cachedValues = cache.values();
-      return cachedValues.toArray(new String[cachedValues.size()]);
-   }
-
-   @CacheRemoveAll(cacheName = "default")
-   public void clearCache() {
-   }
+		return new RemoteCacheManager(conf);
+	}
 
 }

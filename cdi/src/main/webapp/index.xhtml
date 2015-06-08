@@ -24,44 +24,34 @@
 
       <div id="content">
          <h:form prependId="false">
-            <h2><h:outputText value="Greeting form"/></h2>
+            <h2><h:outputText value="Cache form"/></h2>
             <h:messages id="errors" errorClass="error"/>
-            <h:inputText id="name" value="#{greetingController.name}" label="Name" required="true"/>
-            <h:commandButton value="Greet >>" action="#{greetingController.greet}">
-               <f:ajax execute="name" render="errors result"/>
+            <h:inputText id="key" value="#{cacheController.key}" label="Key" required="true"/><br/>
+            <h:inputText id="value" value="#{cacheController.value}" label="Value" required="true"/>
+            <h:commandButton value="Save" action="#{cacheController.guardarObjeto()}">
+               <f:ajax execute="key value" render="errors cache-size"/>
             </h:commandButton>
             <br/>
-            <br/>
 
-            <h:outputText id="result" value="#{greetingController.result}"/>
-            <br/>
-
+			<h2><h:outputText value="Cache query"/></h2>
+			<h:inputText id="key-qry" value="#{cacheController.key}" label="Key" required="true"/><br/>
+			<h:commandButton value="Get" action="#{cacheController.obtenerValor()}">
+               <f:ajax execute="key-qry" render="errors cache-size result"/>
+            </h:commandButton>
+             <ul>
+               <li><h:outputText id="result" value="Value: #{cacheController.value}"/></li>
+            </ul>
+            
+            
             <h2><h:outputText value="Cache information"/></h2>
             <ul>
-               <li><h:outputText value="Cache name: #{greetingCacheManager.cacheName}"/></li>
+               <li><h:outputText id="cache-name" value="Cache name: #{cacheController.cacheName}"/></li>
             </ul>
 
-            <!-- h2>
-               <h:outputText id="cached-values-title" value="Cached values - #{greetingCacheManager.numberOfEntries}"/>
-               <h:commandButton value="Refresh">
-                  <f:ajax immediate="true" render="cached-values-title cached-values"/>
-               </h:commandButton>
-               <h:commandButton value="Clear cache" action="#{greetingCacheManager.clearCache}">
-                  <f:ajax immediate="true" render="cached-values-title cached-values"/>
-               </h:commandButton>
+            <h2>
+               <h:outputText id="cache-size" value="Cache Size - #{cacheController.cacheSize}"/>
             </h2>
-            <ul>
-               <h:dataTable id="cached-values" value="#{greetingCacheManager.cachedValues}" var="oneCachedValue">
-                  <h:column>
-                     <li><h:outputText value="#{oneCachedValue}"/></li>
-                  </h:column>
-               </h:dataTable>
-            </ul-->
          </h:form>
-      </div>
-
-      <div id="footer">
-         <h:outputText value="Infinispan version: #{greetingController.infinispanVersion}"/>
       </div>
    </div>
 

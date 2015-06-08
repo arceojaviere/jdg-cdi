@@ -22,8 +22,9 @@
  */
 package org.infinispan.quickstart.cdi.test.util;
 
+import mx.com.redhat.jdg.cdi.config.Config;
+
 import org.infinispan.quickstart.cdi.GreetingService;
-import org.infinispan.quickstart.cdi.config.Config;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;

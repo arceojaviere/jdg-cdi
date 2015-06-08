@@ -44,7 +44,7 @@
 			<artifactId>infinispan-client-hotrod</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
@@ -56,10 +56,18 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version>
 		</dependency>
+		
+		<!-- Java EE dependencies -->
 
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
